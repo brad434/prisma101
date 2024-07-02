@@ -20,16 +20,19 @@ model User {
   age Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  House House[]
+  houseOwned House[] @relation("HouseOwner")
+  houseBuilt House[] @relation("HouseBuilder")
 }
 
 model House {
   // uuid create an incremented number and letter list for better security
   id String @id @default(uuid())
   address String @unique
-  wifiPassword String? 
-  owner User @relation(fields: [ownerId], references: [id])
+  wifiPassword String?
+  owner User @relation("HouseOwner", fields: [ownerId], references: [id])
   ownerId String
+  builtBy User @relation("HouseBuilder", fields: [builtById], references: [id])
+  builtById String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
