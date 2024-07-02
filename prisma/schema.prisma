@@ -14,10 +14,23 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   firstName String
   lastName String
   age Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  House House[]
+}
+
+model House {
+  // uuid create an incremented number and letter list for better security
+  id String @id @default(uuid())
+  address String @unique
+  wifiPassword String? 
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
