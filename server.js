@@ -44,6 +44,23 @@ app.delete("/:id", async (req, res) => {
   res.json(deleteUser);
 });
 
+app.get("/house", async (req, res) => {
+  const allHouse = await prisma.house.findMany({
+    include: {
+      owner: true,
+      builtBy: true,
+    },
+  });
+  res.json(allHouse);
+});
+
+app.post("/house", async (req, res) => {
+  const newHome = await prisma.house.create({
+    data: req.body,
+  });
+  res.json(newHome);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

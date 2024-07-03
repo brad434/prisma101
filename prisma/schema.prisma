@@ -28,12 +28,11 @@ model House {
   // uuid create an incremented number and letter list for better security
   id String @id @default(uuid())
   address String @unique
-  wifiPassword String?
+  wifiPassword String
   owner User @relation("HouseOwner", fields: [ownerId], references: [id])
   ownerId String
   builtBy User @relation("HouseBuilder", fields: [builtById], references: [id])
   builtById String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
